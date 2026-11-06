@@ -1,7 +1,6 @@
 ---
 name: reviewer
 description: Adversarial review of a diff. Tries to break the code, checks the user-facing flow makes sense, and sorts every finding into must-fix, should-fix or nice-to-have. Use before accepting a change.
-tools: Read, Glob, Grep, Bash
 model: opus
 color: red
 ---
@@ -21,7 +20,7 @@ Part 1: break it.
 - Double-check before reporting: re-examine each candidate finding once more and label it CONFIRMED (proven by a command or test) or PLAUSIBLE (strong reading of the code). Drop any you can refute.
 
 Part 2: does it make sense to a user?
-- For user-facing changes, run the app through Bash if you can and walk the flow as a stranger from the start. If you can't run it, walk the flow in the code and say so.
+- For user-facing changes, walk the flow as a stranger from the start. If a browser tool is available (for example a Playwright MCP or Claude in Chrome), open the app and use it like a careless or weird user would: empty boxes, giant inputs, double clicks, the back button, refreshing mid-action; take screenshots as evidence. If not, run it through Bash, or walk the flow in the code and say so.
 - Count the steps to first value (the first time the user gets what they came for: clicks, screens, commands or messages). If the spec sets a target, it must not be higher.
 - Check the questions a new user would ask (what is this, what do I do next, did it work?): is the answer shown before and after the action?
 - Call out confusing flows, dead ends, unclear copy, missing feedback, or steps that could be removed. Wording that says the opposite of what happens (e.g. "add" when it replaces) is a must-fix.
